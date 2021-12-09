@@ -1,0 +1,42 @@
+ 
+
+
+ private void showOrderPlaced(){
+//        Toast.makeText(getApplicationContext(),
+//                " save button pressed", Toast.LENGTH_SHORT).show();
+
+        String url = "https://192.168.254.109/FoodApp/insert/InsertOrder.php";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(MainMenu.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.equals("success")) {
+                    Toast.makeText( getApplicationContext(), " Wassup, " +
+                            " your data has been successfully saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), " ERROR", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                })
+        {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("OrderId", extraName);
+                map.put("OrderList", OrderListAll);
+                return map;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+}

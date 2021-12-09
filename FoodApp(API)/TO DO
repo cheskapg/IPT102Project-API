@@ -1,0 +1,98 @@
+TO DO
+
+MAKE A NEW PROCEDURE IN MYSQL
+ for insertoder in a certain order id through menu data
+++++++++++++++++++++++++++++++++++++++++++
+ BEGIN
+UPDATE persons 
+SET
+	persons.LastName = LastName,
+    persons.FirstName = FirstName,
+    persons.Age = Age,
+   	persons.VaccinationStatus = VaccinationStatus
+WHERE
+	persons.Id = Id;
+END
+
+++++++++++++++++++++++++++++  sample +++++++++=
+ order list includes delivery info
+
+ -- can also update delivery info 
+
+
+
+ ++++++++++++++
+--if add to cart-- will list to string 
+--then choose which order ID to insert order list to
+--add to orderlist of order through dropdown
+
+(refer to yt https://www.youtube.com/watch?v=KsmDGJpOj0w)
+-- query for update orderlist from deliveryinfo
+
+-- dropdown list depending on chosen highlighted 
+
+== set order id number to dropdown as well,
+ quantity will be sent to the id number from droop down
+
+-- 
+            string save = Model.Customer.InsertDeliveryInfo(, qtyPizza);
+
+            cmbo box populate with data from db
+
+
+
+
+
+
+
+CREATE PROCEDURE GetOrderID() BEGIN SELECT OrderId,FirstName FROM deliveryinfo; END;
+
+https://www.youtube.com/watch?v=EvnjxYpwbvc
+    
+
+
+
+
+ +++++++++++++++++++++++++++++++++=
+ DELIMITER //
+
+CREATE PROCEDURE InsertOrder(
+    IN OrderId INT,
+    IN FirstName VARCHAR (50),
+    IN LastName VARCHAR (50),
+    IN Barangay VARCHAR (50),
+    IN StreetAddress VARCHAR (255),
+    IN PaymentMethod VARCHAR (50),
+    IN OrderList TEXT
+ )
+ 
+ BEGIN  
+ UPDATE deliveryinfo 
+SET
+    deliveryinfo.FirstName = FirstName,
+    deliveryinfo.LastName = LastName,
+    deliveryinfo.Barangay = Barangay,
+    deliveryinfo.StreetAddress = StreetAddress,
+    deliveryinfo.PaymentMethod = PaymentMethod,
+    deliveryinfo.OrderList = OrderList
+
+WHERE
+    deliveryinfo.OrderId = OrderId;
+END//
+ DELIMITER ;
+
+
+ ----------------- MENU ORDER LIST 
+
+ DELIMITER //
+CREATE PROCEDURE GetMenuOrder(
+    IN OrderId INT
+    ) 
+
+BEGIN
+SELECT OrderList FROM deliveryinfo; 
+
+WHERE deliveryinfo.OrderId = OrderId;
+
+END //
+DELIMITER ;
